@@ -45,3 +45,26 @@ Le projet utilise le **Design Pattern "Strategy"** appliqué aux Payloads JSON. 
 - **Méthode** : GitHub compatible HACS.
 - **Documentation** : README.md (Utilisateur) + PROJECT_SPEC.md (Technique).
 - **CI/CD** : GitHub Actions pour validation automatique du code.
+
+## 6. Plan d'Exécution (Séquencement)
+
+Le projet est découpé en phases chronologiques. Chaque phase doit être validée (code + tests) avant de passer à la suivante.
+
+### Phase 1 : Socle et Connectivité (Fondations)
+1.  **Step 1.1** : Implémentation du `base_driver.py` (Cœur WebSocket + Reconnexion).
+2.  **Step 1.2** : Implémentation de `discovery.py` (Listener Avahi pour identifier V7/V8/LaBox).
+3.  **Step 1.3** : Centralisation des KeyCodes dans `constants.py` (Traduction de l'APK).
+
+### Phase 2 : Drivers Spécifiques (Intelligence)
+1.  **Step 2.1** : Driver V8 (Payloads JSON WebSocket).
+2.  **Step 2.2** : Driver V7 (Adaptation Payloads).
+3.  **Step 2.3** : Driver LaBox.
+
+### Phase 3 : Interface et Intégration (HACS)
+1.  **Step 3.1** : CLI Tool (`cli.py`) pour tests manuels.
+2.  **Step 3.2** : Intégration Home Assistant (`media_player` & `remote`).
+3.  **Step 3.3** : Blueprints UI Lovelace.
+
+### Phase 4 : Industrialisation
+1.  **Step 4.1** : GitHub Actions (CI/CD).
+2.  **Step 4.2** : Documentation finale et publication HACS.
