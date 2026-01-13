@@ -1,4 +1,5 @@
 """Module for discovering SFR boxes on the local network using mDNS (Zeroconf)."""
+
 import asyncio
 import logging
 from typing import Dict

@@ -1,4 +1,5 @@
 """Tests for the `BaseSFRBoxDriver` abstract base class."""
+
 import asyncio
 from unittest.mock import AsyncMock
 from unittest.mock import MagicMock

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """A command-line utility to discover SFR boxes on the local network."""
+
 import argparse
 import asyncio
 import logging
