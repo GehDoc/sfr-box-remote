@@ -1,14 +1,17 @@
 import asyncio
 import logging
+from abc import ABC
+from abc import abstractmethod
+from typing import Callable
+from typing import Optional
+
 import websockets
-from typing import Optional, Callable
-from abc import ABC, abstractmethod
 
 _LOGGER = logging.getLogger(__name__)
 
+
 class BaseSFRBoxDriver(ABC):
-    """
-    Abstract Base Class for SFR Box drivers.
+    """Abstract Base Class for SFR Box drivers.
 
     This class provides the common WebSocket handling logic, including connection,
     reconnection with exponential backoff, and message sending/receiving.
@@ -17,8 +20,7 @@ class BaseSFRBoxDriver(ABC):
     """
 
     def __init__(self, host: str, port: int = 8080):
-        """
-        Initializes the BaseSFRBoxDriver.
+        """Initializes the BaseSFRBoxDriver.
 
         Args:
             host (str): The hostname or IP address of the SFR Box.
@@ -29,12 +31,11 @@ class BaseSFRBoxDriver(ABC):
         self._websocket: Optional[websockets.client.WebSocketClientProtocol] = None
         self._reconnect_task: Optional[asyncio.Task] = None
         self._message_callback: Optional[Callable[[str], None]] = None
-        self._listeners = [] # Placeholder for message listeners
+        self._listeners = []  # Placeholder for message listeners
 
     @abstractmethod
     async def _handle_message(self, message: str) -> None:
-        """
-        Abstract method to handle incoming messages from the WebSocket.
+        """Abstract method to handle incoming messages from the WebSocket.
         Implement this in subclasses for specific box logic.
 
         Args:
@@ -53,9 +54,13 @@ class BaseSFRBoxDriver(ABC):
                 _LOGGER.info("Successfully connected to %s", uri)
                 break
             except Exception as e:
-                _LOGGER.error("Connection failed: %s. Retrying in %d seconds...", e, retry_delay)
+                _LOGGER.error(
+                    "Connection failed: %s. Retrying in %d seconds...", e, retry_delay
+                )
                 await asyncio.sleep(retry_delay)
-                retry_delay = min(retry_delay * 2, 60) # Exponential backoff, max 60 seconds
+                retry_delay = min(
+                    retry_delay * 2, 60
+                )  # Exponential backoff, max 60 seconds
 
     async def start(self) -> None:
         """Starts the WebSocket connection and message listening."""
@@ -75,8 +80,7 @@ class BaseSFRBoxDriver(ABC):
             self._reconnect_task = None
 
     async def send_message(self, message: str) -> None:
-        """
-        Sends a message over the WebSocket connection.
+        """Sends a message over the WebSocket connection.
 
         Args:
             message (str): The message string to send.
@@ -113,7 +117,7 @@ class BaseSFRBoxDriver(ABC):
         except websockets.exceptions.ConnectionClosed:
             _LOGGER.info("WebSocket connection closed. Attempting to reconnect...")
             await self.stop()
-            await self.start() # Trigger reconnection logic
+            await self.start()  # Trigger reconnection logic
         except Exception as e:
             _LOGGER.error("Error during message listening: %s", e)
             await self.stop()

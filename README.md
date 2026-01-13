@@ -64,9 +64,10 @@ The script will scan the network for 10 seconds by default.
 
 **Options:**
 
-*   `-t <seconds>`, `--timeout <seconds>`: Specify the duration of the network scan in seconds.
+- `-t <seconds>`, `--timeout <seconds>`: Specify the duration of the network scan in seconds.
 
     *Example (scan for 5 seconds):*
+
     ```bash
     python scripts/run_discovery.py -t 5
     ```
@@ -124,5 +125,3 @@ To run a single test by its name:
 ```bash
 PYTHONPATH=. pytest -v tests/test_discovery.py::test_discover_single_box_async
 ```
-
-

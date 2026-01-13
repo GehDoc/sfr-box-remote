@@ -34,8 +34,7 @@ known-first-party = ["sfr_box_core", "custom_components"]
 force-single-line = true
 combine-as-imports = true
 known-local-folder = ["tests", "scripts"]
-section-order = ["future", "standard-library", "third-party", "first-party", "local-folder", "relative"]
-profile = "black"
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
 
 [pydocstyle]
 convention = "google"

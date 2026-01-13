@@ -1,12 +1,15 @@
-"""
-Module for discovering SFR boxes on the local network using mDNS (Zeroconf).
+"""Module for discovering SFR boxes on the local network using mDNS (Zeroconf).
 """
 import asyncio
 import logging
-from typing import Dict, List, NamedTuple, Optional
+from typing import Dict
+from typing import List
+from typing import NamedTuple
+from typing import Optional
 
 from zeroconf import Zeroconf
-from zeroconf.asyncio import AsyncServiceBrowser, AsyncZeroconf
+from zeroconf.asyncio import AsyncServiceBrowser
+from zeroconf.asyncio import AsyncZeroconf
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -24,6 +27,7 @@ DEFAULT_PORT = 7682
 
 class DiscoveredBox(NamedTuple):
     """Represents a discovered SFR Box."""
+
     identifier: str
     ip_address: str
     port: int
@@ -48,8 +52,7 @@ class _DiscoveryListener:
         pass
 
     def add_service(self, zc: Zeroconf, type_: str, name: str) -> None:
-        """
-        A service has been added.
+        """A service has been added.
         This is a synchronous callback from zeroconf, so we schedule the
         async work to be done on the event loop.
         """
@@ -66,18 +69,18 @@ class _DiscoveryListener:
         if not model:
             _LOGGER.debug("Ignoring service '%s' with unknown model", name)
             return
-        
+
         # Per user spec for POC, port is hardcoded.
         # In the future, this might come from the service info or a secondary lookup.
         port = DEFAULT_PORT
-        
+
         ip_addresses = info.parsed_addresses()
         if not ip_addresses:
             _LOGGER.warning("No IP address found for service '%s'", name)
             return
 
         ip_address = ip_addresses[0]
-        
+
         # For POC, name is a placeholder
         friendly_name = f"{model} ({ip_address})"
 
@@ -97,8 +100,7 @@ class _DiscoveryListener:
 
 
 async def async_discover_boxes(timeout: int = 5) -> List[DiscoveredBox]:
-    """
-    Scan the network for SFR boxes using mDNS.
+    """Scan the network for SFR boxes using mDNS.
 
     Args:
         timeout: The number of seconds to scan for.
@@ -109,12 +111,12 @@ async def async_discover_boxes(timeout: int = 5) -> List[DiscoveredBox]:
     aiozc = AsyncZeroconf()
     listener = _DiscoveryListener()
     browser = AsyncServiceBrowser(aiozc.zeroconf, SERVICE_TYPE, listener=listener)
-    
+
     _LOGGER.info("Starting mDNS scan for %d seconds...", timeout)
     await asyncio.sleep(timeout)
-    
+
     await browser.async_cancel()
     await aiozc.async_close()
-    
+
     _LOGGER.info("mDNS scan finished. Found %d boxes.", len(listener.discovered_boxes))
     return list(listener.discovered_boxes.values())

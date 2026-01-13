@@ -1,35 +1,42 @@
 #!/usr/bin/env python3
+"""A command-line utility to discover SFR boxes on the local network.
 """
-A command-line utility to discover SFR boxes on the local network.
-"""
+import argparse
 import asyncio
 import logging
-import argparse
-import sys
 import os
+import sys
 
 # Ensure the script can find the sfr_box_core module
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from sfr_box_core.discovery import async_discover_boxes
 
 # Set up basic logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 _LOGGER = logging.getLogger(__name__)
 
 
 async def main():
     """Main function to run the discovery."""
-    parser = argparse.ArgumentParser(description="Discover SFR STBs on the local network.")
+    parser = argparse.ArgumentParser(
+        description="Discover SFR STBs on the local network."
+    )
     parser.add_argument(
-        "-t", "--timeout",
+        "-t",
+        "--timeout",
         type=int,
         default=10,
-        help="The duration (in seconds) to scan for devices. Default is 10 seconds."
+        help="The duration (in seconds) to scan for devices. Default is 10 seconds.",
     )
     args = parser.parse_args()
 
-    _LOGGER.info("Starting network discovery for SFR Boxes (scan duration: %d seconds)...", args.timeout)
-    
+    _LOGGER.info(
+        "Starting network discovery for SFR Boxes (scan duration: %d seconds)...",
+        args.timeout,
+    )
+
     try:
         discovered_boxes = await async_discover_boxes(timeout=args.timeout)
 
@@ -44,7 +51,7 @@ async def main():
             _LOGGER.info("--------------------------")
         else:
             _LOGGER.info("No SFR Boxes discovered on the network.")
-    
+
     except Exception as e:
         _LOGGER.error("An error occurred during discovery: %s", e, exc_info=True)
 
