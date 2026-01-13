@@ -38,6 +38,12 @@ Composant personnalisé prêt pour HACS (Délivrables 3 & 5).
 - **Langage** : Python 3.12 (Asynchrone via `asyncio`).
 - **Robustesse** : Gestion de la reconnexion avec backoff exponentiel et monitoring de la connexion (Heartbeat).
 
+## 3. Structure du Repository
+
+Le projet suit une architecture Monorepo stricte séparant la librairie Core de l'intégration Home Assistant.
+
+Pour le détail complet de l'arborescence et les conventions de développement, veuillez vous référer au fichier [AGENTS.md](./AGENTS.md).
+
 ## 4. Utilities
 
 ### Discovery Script
@@ -51,24 +57,19 @@ The project includes a command-line utility to discover SFR boxes on your local 
 To run the script, execute the following command from the root of the project directory:
 
 ```bash
-
 python scripts/run_discovery.py
-
 ```
 
 The script will scan the network for 10 seconds by default.
 
 **Options:**
 
-- `-t <seconds>`, `--timeout <seconds>`: Specify the duration of the network scan in seconds.
+*   `-t <seconds>`, `--timeout <seconds>`: Specify the duration of the network scan in seconds.
 
-  _Example (scan for 5 seconds):_
-
-  ```bash
-
-  python scripts/run_discovery.py -t 5
-
-  ```
+    *Example (scan for 5 seconds):*
+    ```bash
+    python scripts/run_discovery.py -t 5
+    ```
 
 ## 5. Development Setup
 
@@ -92,8 +93,36 @@ pre-commit install
 
 This command will install the Git hooks that will automatically run `ruff` (linter and formatter) every time you commit changes. This helps catch issues before they become part of the commit history.
 
-## 7. Structure du Repository
+## 6. Testing
 
-Le projet suit une architecture Monorepo stricte séparant la librairie Core de l'intégration Home Assistant.
+This project uses `pytest` for unit testing. The tests are located in the `tests/` directory.
 
-Pour le détail complet de l'arborescence et les conventions de développement, veuillez vous référer au fichier [AGENTS.md](./AGENTS.md).
+To run the tests, ensure you have the necessary dependencies installed (`pytest`, `pytest-asyncio`, `websockets`, `zeroconf`).
+
+**Note:** The `PYTHONPATH=.` prefix is required to ensure that `pytest` can find the `sfr_box_core` module from the project root.
+
+### A. Run All Tests
+
+To run the entire test suite:
+
+```bash
+PYTHONPATH=. pytest -v tests/
+```
+
+### B. Run a Specific Test File
+
+To run only the tests contained within a single file:
+
+```bash
+PYTHONPATH=. pytest -v tests/test_discovery.py
+```
+
+### C. Run a Specific Test
+
+To run a single test by its name:
+
+```bash
+PYTHONPATH=. pytest -v tests/test_discovery.py::test_discover_single_box_async
+```
+
+
