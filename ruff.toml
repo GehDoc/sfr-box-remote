@@ -1,0 +1,45 @@
+# ruff.toml
+# Ruff configuration for sfr-box-remote project
+
+# The Python version to target, used to enable/disable specific rules.
+target-version = "py312"
+
+# Enable all `W` (warnings) and `E` (errors) rules by default.
+# See https://beta.ruff.rs/docs/rules/ for a complete list of rules.
+select = ["E", "W", "F", "I", "N", "D"] # E=Error, W=Warning, F=Flake8, I=isort, N=naming, D=docstrings
+
+# Exclude files and directories from linting.
+exclude = [
+    ".git",
+    "__pycache__",
+    "venv",
+    "build",
+    "dist",
+    "custom_components/*/migrations",
+    "docs",
+]
+
+# Configure the line length limit.
+line-length = 88
+
+# Enable specific rule options.
+[flake8-annotations]
+mypy-init-shorthand = true
+
+[flake8-quotes]
+inline-quotes = "double"
+
+[isort]
+known-first-party = ["sfr_box_core", "custom_components"]
+force-single-line = true
+combine-as-imports = true
+known-local-folder = ["tests", "scripts"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder", "relative"]
+profile = "black"
+
+[pydocstyle]
+convention = "google"
+
+[mccabe]
+max-complexity = 10
+
