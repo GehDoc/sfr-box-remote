@@ -9,10 +9,15 @@
 
 - [x] **Step 1.1** : base_driver.py (WebSocket Core) - *Priorité Haute*
 - [x] **Step 1.2** : discovery.py (mDNS Listener)
-- [ ] **Step 1.3** : constants.py (KeyCodes APK)
-- [ ] **Phase 2** : Drivers (V8/V7/LaBox)
+- [ ] **Step 1.3** : Définir la structure des commandes et créer `sfr_box_core/constants.py` pour les valeurs de commandes partagées.
+- [ ] **Phase 2.1** : v8_driver.py - *Priorité Haute*
+- [ ] **Phase 2.2** : v7_driver.py - *Priorité Moyenne*
 - [ ] **Phase 3** : Intégration Home Assistant
-- [ ] **Phase 4** : CI/CD & Publication
+- [x] **Phase 4.1** : CI (Workflows GitHub Actions)
+- [ ] **Phase 4.2** : CD (Publication)
+- [ ] **Phase 5.1** : labox_driver.py - *Priorité Basse*
+- [ ] **Phase 5.2** : Implémenter la découverte EVO (Router API via MAC) - *Priorité Basse*
+- [ ] **Phase 5.3** : evo_driver.py - *Priorité Basse*
 
 ## 🚧 Travail en cours (WIP)
 

@@ -11,11 +11,12 @@ Le projet est organisé en monorepo pour garantir la cohérence entre la bibliot
 Bibliothèque Python 3.12+ autonome (Délivrables 1 & 2).
 
 - **Transport** : Client WebSocket asynchrone unique pour toutes les box.
-- **Pattern Strategy (Payloads)** :
-  - `base_driver.py` : Interface de base gérant la session WebSocket et la reconnexion.
-  - `v8_driver.py` : Générateur de messages JSON spécifiques à la Box TV 8.
-  - `v7_driver.py` : Générateur de messages JSON spécifiques à la Box TV 7.
-  - `labox_driver.py` : Générateur de messages pour les versions antérieures.
+- **Stratégie de Commandes (Payloads Polymorphiques)** :
+  - `base_driver.py` : Interface de base gérant la session WebSocket, la reconnexion et un système générique pour l'envoi et la réception de commandes (ex: `send_command(command, **params)`). Chaque driver spécialisé implémentera la liste de ses commandes disponibles (`get_available_commands()`).
+  - `v8_driver.py` : Définit et implémente les commandes spécifiques à la Box TV 8 (ex: commandes JSON avec paramètres).
+  - `v7_driver.py` : Définit et implémente les commandes spécifiques à la Box TV 7.
+  - `labox_driver.py` : Définit et implémente les commandes spécifiques à LaBox.
+  - `constants.py` : Contient des constantes partagées par la librairie, incluant potentiellement les valeurs de certains paramètres de commande (ex: KeyCodes utilisés par une commande `send_key`).
 - **Discovery** : Listener Avahi (`discovery.py`) pour l'identification de la version et l'attribution du bon driver.
 - **CLI** : Outil de pilotage en ligne de commande (`cli.py`).
 
