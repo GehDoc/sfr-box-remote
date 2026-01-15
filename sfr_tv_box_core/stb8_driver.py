@@ -92,9 +92,7 @@ class STB8Driver(BaseSFRBoxDriver):
     Implements the command building and response parsing specific to this model.
     """
 
-    def __init__(
-        self, host: str, port: int = DEFAULT_WEBSOCKET_PORT, device_id: str = "default-stb8"
-    ):
+    def __init__(self, host: str, port: int = DEFAULT_WEBSOCKET_PORT, device_id: str = "default-stb8"):
         """Initialize the STB8Driver.
 
         Args:

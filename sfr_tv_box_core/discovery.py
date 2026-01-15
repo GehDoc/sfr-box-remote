@@ -25,8 +25,6 @@ MODEL_PREFIXES = {
 }
 
 
-
-
 class DiscoveredBox(NamedTuple):
     """Represents a discovered SFR Box."""
 

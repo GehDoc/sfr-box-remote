@@ -79,10 +79,12 @@ async def test_connect_with_retries(driver, monkeypatch):
     assert driver._websocket is not None
 
     # Assert that the sleep delays were exponential (1s, then 2s)
-    sleep_mock.assert_has_calls([
-        call(1), # First retry after 1 second
-        call(2)  # Second retry after 2 seconds
-    ])
+    sleep_mock.assert_has_calls(
+        [
+            call(1),  # First retry after 1 second
+            call(2),  # Second retry after 2 seconds
+        ]
+    )
 
 
 @pytest.mark.asyncio
@@ -232,11 +234,13 @@ async def test_start_creates_task_and_connects(monkeypatch):
 
     # A task object is not directly awaitable, so a MagicMock is more accurate.
     mock_task = MagicMock(spec=asyncio.Task)
+
     # The mock for create_task needs to "consume" the coroutine passed to it
     # to prevent a "coroutine never awaited" warning.
     def consume_coro_and_return_mock(coro):
         coro.close()  # Mark the coroutine as handled
         return mock_task
+
     mock_create_task = MagicMock(side_effect=consume_coro_and_return_mock)
     monkeypatch.setattr(asyncio, "create_task", mock_create_task)
 
@@ -295,8 +299,10 @@ async def test_listen_loop_restarts_on_handler_exception(monkeypatch, caplog):
     # Defining the side effect as an async function is sometimes more stable
     # for the mock runner than a direct exception object.
     error_message = "Handler failed!"
+
     async def raise_exception_side_effect(*args, **kwargs):
         raise Exception(error_message)
+
     handle_mock = AsyncMock(side_effect=raise_exception_side_effect)
     monkeypatch.setattr(driver, "_handle_message", handle_mock)
 
@@ -309,4 +315,3 @@ async def test_listen_loop_restarts_on_handler_exception(monkeypatch, caplog):
     # Verify the reconnection logic was triggered
     stop_mock.assert_awaited_once()
     start_mock.assert_awaited_once()
-
