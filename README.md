@@ -114,6 +114,7 @@ Pour une analyse approfondie des spécifications du projet, de l'état d'avancem
 
 *   **[Spécifications et Roadmap du Projet](PROJECT_SPEC.md)** : Définit l'architecture globale, le backlog fonctionnel et les standards de développement.
 *   **[Avancement du Projet et Prochaines Étapes](PROGRESS.md)** : Suit le statut actuel, les tâches terminées et les phases de développement à venir.
+*   **[Processus de Release et Versioning](docs/RELEASE_PROCESS.md)** : Décrit la stratégie de versioning, le processus de release et la gestion des tags.
 *   **[Documentation Technique (docs/)](docs/)** : Contient les spécifications détaillées pour les commandes, les mécanismes de découverte et d'autres aspects techniques.
 
     *   [Spécification des Commandes et Payloads](docs/COMMANDS_SPEC.md)

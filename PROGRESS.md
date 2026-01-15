@@ -16,6 +16,7 @@
 - [x] **Phase 4.1** : CI (Workflows GitHub Actions)
 - [ ] **Phase 4.2** : CD (Publication)
 - [ ] **Phase 4.3** : sfr_tv_box_remote.py (Mode interactif) - *Priorité Moyenne*
+- [ ] **Phase 4.4** : Créer le workflow de release (Action GitHub) pour synchroniser la version du `pyproject.toml` vers `manifest.json` lors de la création d'un tag Git. - *Priorité Moyenne*
 - [ ] **Phase 5.1** : labox_driver.py - *Priorité Basse*
 - [ ] **Phase 5.2** : Implémenter la découverte EVO (Router API via MAC) - *Priorité Basse*
 - [ ] **Phase 5.3** : evo_driver.py - *Priorité Basse*
