@@ -6,7 +6,7 @@ This document defines the command and control architecture for all supported SFR
 ## 2. Core Architectural Principles
 The control system is built on two core principles:
 
--   **Command Abstraction**: A common set of abstract command names will be used across the library (e.g., `POWER`, `SET_CHANNEL`, `SEND_KEY`). This provides a consistent API for any client using the library, regardless of the box model being controlled.
+-   **Command Abstraction**: A common set of abstract command names (defined by the `CommandType` enum in `sfr_box_core/constants.py`) will be used across the library (e.g., `SEND_KEY`, `GET_STATUS`). This provides a consistent API for any client using the library, regardless of the box model being controlled.
 -   **Polymorphic Implementation (Strategy Pattern)**: Each box-specific driver (`v8_driver.py`, `v7_driver.py`, etc.) is responsible for translating these abstract commands into the correct JSON payload required by its specific hardware model. The `base_driver.py` will provide the common interface for executing these commands (e.g., `send_command(command, **params)`).
 
 ### 3.1 KeyCodes

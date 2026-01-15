@@ -4,6 +4,19 @@ Shared constants for the sfr-box-remote library.
 from enum import StrEnum
 
 
+class CommandType(StrEnum):
+    """
+    Abstract CommandType names.
+
+    These define the high-level commands supported by the SFR boxes.
+    Each driver is responsible for translating these into specific
+    protocol messages.
+    """
+    SEND_KEY = "SEND_KEY"
+    GET_STATUS = "GET_STATUS"
+    GET_VERSIONS = "GET_VERSIONS"
+
+
 class KeyCode(StrEnum):
     """
     Abstract KeyCode names.
