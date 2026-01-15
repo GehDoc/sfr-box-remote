@@ -1,3 +1,7 @@
+[![CI Status](https://github.com/GehDoc/sfr-tv-box-remote/workflows/CI/badge.svg)](https://github.com/GehDoc/sfr-tv-box-remote/actions?query=workflow%3ACI)
+[![Codecov](https://codecov.io/gh/GehDoc/sfr-tv-box-remote/branch/main/graph/badge.svg)](https://codecov.io/gh/GehDoc/sfr-tv-box-remote)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/GehDoc/sfr-tv-box-remote)](https://github.com/GehDoc/sfr-tv-box-remote/releases)
+
 # SFR TV Box Remote (Unified WebSocket Driver)
 
 Pilotage professionnel "Full IP" des décodeurs SFR (V8, V7, LaBox) pour Home Assistant. Ce projet utilise un transport WebSocket bidirectionnel unique, identifié par reverse-engineering de l'APK SFR TV, pour toutes les générations de matériel.
